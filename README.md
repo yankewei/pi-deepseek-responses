@@ -16,13 +16,13 @@ The original provider ID is retained. Therefore its existing `baseUrl`, API key 
 After publishing, install it globally with:
 
 ```bash
-pi install npm:pi-deepseek-responses
+pi install npm:@yankewei/pi-deepseek-responses
 ```
 
 To install a specific version:
 
 ```bash
-pi install npm:pi-deepseek-responses@0.1.0
+pi install npm:@yankewei/pi-deepseek-responses@0.1.1
 ```
 
 Pi reads the `pi.extensions` manifest from the package and loads `src/index.ts` automatically.
@@ -65,7 +65,7 @@ git push origin main --follow-tags
 
 The `vX.Y.Z` tag starts `.github/workflows/release.yml`, which runs the checks and
 publishes the matching version to npm through GitHub Actions Trusted Publishing.
-The npm package must have a trusted publisher configured for:
+The scoped npm package must have a trusted publisher configured for:
 
 - Repository: `yankewei/pi-deepseek-responses`
 - Workflow: `release.yml`
@@ -74,7 +74,7 @@ The npm package must have a trusted publisher configured for:
 For a new npm package, the configuration can also be created with:
 
 ```bash
-npm trust github pi-deepseek-responses \
+npm trust github @yankewei/pi-deepseek-responses \
   --repository yankewei/pi-deepseek-responses \
   --file release.yml \
   --allow-publish \

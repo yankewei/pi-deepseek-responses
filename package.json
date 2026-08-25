@@ -1,6 +1,6 @@
 {
-  "name": "pi-deepseek-responses",
-  "version": "0.1.0",
+  "name": "@yankewei/pi-deepseek-responses",
+  "version": "0.1.1",
   "description": "pi extension that routes compatible DeepSeek models through each provider's Responses API",
   "type": "module",
   "repository": {
@@ -10,6 +10,9 @@
   "homepage": "https://github.com/yankewei/pi-deepseek-responses#readme",
   "bugs": {
     "url": "https://github.com/yankewei/pi-deepseek-responses/issues"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "keywords": [
     "pi-package",
