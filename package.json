@@ -5,7 +5,7 @@
   "type": "module",
   "repository": {
     "type": "git",
-    "url": "https://github.com/yankewei/pi-deepseek-responses"
+    "url": "git+https://github.com/yankewei/pi-deepseek-responses.git"
   },
   "homepage": "https://github.com/yankewei/pi-deepseek-responses#readme",
   "bugs": {
