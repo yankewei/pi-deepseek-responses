@@ -1,6 +1,6 @@
 {
   "name": "@yankewei/pi-web-search",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "pi extension that exposes provider-native web search and routes compatible DeepSeek models through each provider's Responses API",
   "type": "module",
   "repository": {
