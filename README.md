@@ -1,106 +1,54 @@
 # pi Web Search
 
-An extension package for [pi](https://github.com/earendil-works/pi) that exposes provider-native web search as a client-side tool. It currently routes compatible DeepSeek models through each provider's Responses API and supports DeepSeek's Responses API web search.
+为 [pi](https://github.com/earendil-works/pi) 增加 provider-native 的 `web_search` 工具。
 
-When the extension starts, it:
-
-1. Finds supported DeepSeek model IDs across all configured providers.
-2. Re-registers each affected provider with the same complete model list.
-3. Changes only the matching DeepSeek models to `openai-responses`.
-
-The original provider ID is retained. Therefore its existing `baseUrl`, API key or OAuth credentials, headers, and billing path are retained as well. The provider must expose a Responses-compatible `POST /responses` endpoint and forward DeepSeek's Responses format.
-
-The extension also registers a client-side `web_search` tool. The model decides when searching is useful and calls the tool explicitly:
-
-1. The tool sends a standalone Responses request to the provider with the server-side `{ "type": "web_search" }` tool, asking the provider to search for the query.
-2. The provider's native web search runs server-side (the DeepSeek Responses API executes the search within the same request and answers from the results).
-3. The findings are returned to the model as the tool result.
-
-If the current model or provider does not support provider-side web search, the tool reports an explicit error back to the model instead of failing silently.
-
-## Install from npm
-
-After publishing, install it globally with:
+## 安装
 
 ```bash
 pi install npm:@yankewei/pi-web-search
 ```
 
-To install a specific version:
+安装后重启 pi 即可。
+
+## 原理
+
+1. 扩展向 pi 注册 `web_search` 工具。
+2. 模型需要实时信息时调用该工具，扩展把查询交给当前 provider 的原生 Web Search。
+3. DeepSeek 使用 Responses API 的 `web_search`；GPT-5.6 使用 pi 的 `openai-codex-responses` 和现有 OAuth 登录。
+4. 返回结果中的正文引用会转换为可点击的 `Sources` 列表；不支持的模型会返回明确错误。
+
+扩展不实现搜索引擎，也不需要单独维护搜索 API。认证、`baseUrl`、headers 和环境配置由 pi 管理。
+
+## 支持模型
+
+DeepSeek：
+
+- `deepseek-v4-flash`
+
+GPT-5.6（必须使用 `openai-codex` provider）：
+
+- `openai-codex/gpt-5.6-luna`
+- `openai-codex/gpt-5.6-sol`
+- `openai-codex/gpt-5.6-terra`
+
+例如：
 
 ```bash
-pi install npm:@yankewei/pi-web-search@0.1.3
+pi --model openai-codex/gpt-5.6-luna
 ```
 
-Pi reads the `pi.extensions` manifest from the package and loads `src/index.ts` automatically.
+Codex 使用 pi 已有的 OAuth 凭证，不需要额外配置 `OPENAI_API_KEY`。
 
-## Local development
+## 本地开发
 
 ```bash
 npm install
 npm run check
+npm test
 ```
 
-Load the extension with:
+本地加载扩展：
 
 ```bash
 pi -e ./src/index.ts
 ```
-
-The package can also be loaded directly during development:
-
-```bash
-pi -e .
-```
-
-Before releasing, verify the package contents:
-
-```bash
-npm run check
-npm test
-npm run pack:check
-```
-
-## Release from Git
-
-The GitHub repository is the source of published versions. A release is created by
-updating the package version and pushing the generated tag:
-
-```bash
-npm version patch
-git push origin main --follow-tags
-```
-
-The `vX.Y.Z` tag starts `.github/workflows/release.yml`, which runs the checks and
-publishes the matching version to npm through GitHub Actions Trusted Publishing.
-The scoped npm package must have a trusted publisher configured for:
-
-- Repository: `yankewei/pi-web-search`
-- Workflow: `release.yml`
-- Permission: `npm publish`
-
-For a new npm package, the configuration can also be created with:
-
-```bash
-npm trust github @yankewei/pi-web-search \
-  --repository yankewei/pi-web-search \
-  --file release.yml \
-  --allow-publish \
-  --yes
-```
-
-## Supported models
-
-The extension currently matches this model ID, including provider-prefixed variants such as `deepseek/deepseek-v4-flash`:
-
-- `deepseek-v4-flash`
-
-The original model ID is sent unchanged. This matters for providers such as OpenRouter that require a provider-qualified model ID.
-
-## Web search behavior
-
-The `web_search` tool is always registered. Calling it with a model outside the supported list (or with a provider that does not implement the Responses API / DeepSeek's `web_search` tool) returns an explicit error result so the model can tell the user that web search is unavailable.
-
-## Version
-
-The package is pinned to the pi `0.84.3` API packages used by the source workspace. Update the two `@earendil-works` dependencies together when upgrading pi.
