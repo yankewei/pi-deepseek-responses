@@ -5,11 +5,11 @@
   "type": "module",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/yankewei/pi-deepseek-responses.git"
+    "url": "git+https://github.com/yankewei/pi-web-search.git"
   },
-  "homepage": "https://github.com/yankewei/pi-deepseek-responses#readme",
+  "homepage": "https://github.com/yankewei/pi-web-search#readme",
   "bugs": {
-    "url": "https://github.com/yankewei/pi-deepseek-responses/issues"
+    "url": "https://github.com/yankewei/pi-web-search/issues"
   },
   "publishConfig": {
     "access": "public"

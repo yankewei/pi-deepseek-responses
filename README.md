@@ -74,7 +74,7 @@ The `vX.Y.Z` tag starts `.github/workflows/release.yml`, which runs the checks a
 publishes the matching version to npm through GitHub Actions Trusted Publishing.
 The scoped npm package must have a trusted publisher configured for:
 
-- Repository: `yankewei/pi-deepseek-responses`
+- Repository: `yankewei/pi-web-search`
 - Workflow: `release.yml`
 - Permission: `npm publish`
 
@@ -82,7 +82,7 @@ For a new npm package, the configuration can also be created with:
 
 ```bash
 npm trust github @yankewei/pi-web-search \
-  --repository yankewei/pi-deepseek-responses \
+  --repository yankewei/pi-web-search \
   --file release.yml \
   --allow-publish \
   --yes
