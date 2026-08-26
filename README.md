@@ -1,6 +1,6 @@
-# pi DeepSeek Responses
+# pi Web Search
 
-An extension package for [pi](https://github.com/earendil-works/pi) that enables DeepSeek's Responses API for compatible DeepSeek models without changing the selected provider, and exposes the provider's native web search as a client-side tool the model can call on demand.
+An extension package for [pi](https://github.com/earendil-works/pi) that exposes provider-native web search as a client-side tool. It currently routes compatible DeepSeek models through each provider's Responses API and supports DeepSeek's Responses API web search.
 
 When the extension starts, it:
 
@@ -23,13 +23,13 @@ If the current model or provider does not support provider-side web search, the 
 After publishing, install it globally with:
 
 ```bash
-pi install npm:@yankewei/pi-deepseek-responses
+pi install npm:@yankewei/pi-web-search
 ```
 
 To install a specific version:
 
 ```bash
-pi install npm:@yankewei/pi-deepseek-responses@0.1.2
+pi install npm:@yankewei/pi-web-search@0.1.2
 ```
 
 Pi reads the `pi.extensions` manifest from the package and loads `src/index.ts` automatically.
@@ -81,7 +81,7 @@ The scoped npm package must have a trusted publisher configured for:
 For a new npm package, the configuration can also be created with:
 
 ```bash
-npm trust github @yankewei/pi-deepseek-responses \
+npm trust github @yankewei/pi-web-search \
   --repository yankewei/pi-deepseek-responses \
   --file release.yml \
   --allow-publish \
