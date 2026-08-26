@@ -29,7 +29,7 @@ pi install npm:@yankewei/pi-web-search
 To install a specific version:
 
 ```bash
-pi install npm:@yankewei/pi-web-search@0.1.2
+pi install npm:@yankewei/pi-web-search@0.1.3
 ```
 
 Pi reads the `pi.extensions` manifest from the package and loads `src/index.ts` automatically.
@@ -44,19 +44,20 @@ npm run check
 Load the extension with:
 
 ```bash
-pi -e /Users/yankewei/Documents/github/pi-deepseek-responses/src/index.ts
+pi -e ./src/index.ts
 ```
 
 The package can also be loaded directly during development:
 
 ```bash
-pi -e /Users/yankewei/Documents/github/pi-deepseek-responses
+pi -e .
 ```
 
 Before releasing, verify the package contents:
 
 ```bash
 npm run check
+npm test
 npm run pack:check
 ```
 

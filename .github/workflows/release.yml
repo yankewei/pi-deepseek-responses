@@ -28,6 +28,12 @@ jobs:
       - name: Check package
         run: npm run check
 
+      - name: Test package
+        run: npm test
+
+      - name: Verify package contents
+        run: npm run pack:check
+
       - name: Verify tag matches package version
         env:
           RELEASE_TAG: ${{ github.ref_name }}
